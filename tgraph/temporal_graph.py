@@ -47,13 +47,13 @@ SUM_MEASURE="sum_measure"
 
 
 class TemporalGraph():
-    def __init__(self, filename):
+    def __init__(self, filename, separator=','):
         """
         extract temporal features from nodes: inter-arrival time (iat)
         and duration wrt the 'measure' attribute
         """
         self.filename = filename
-        self.read_input_data()
+        self.read_input_data(separator)
         
         # get the set of all nodes (sources, and/or destinations)
         self.set_of_nodes = self.get_node_set()
@@ -65,12 +65,12 @@ class TemporalGraph():
         # add columns with features, to the df_nodes dataframe
         self.graph2vec()
         
-    def read_input_data(self):
+    def read_input_data(self, separator):
         """
         read input data, with four required columns:
         source, destination, measure and timestamp
         """
-        self.df = pd.read_csv(self.filename)
+        self.df = pd.read_csv(self.filename, sep=separator)
         self.headers = self.df.columns
         
         assert len(self.headers) >= 4, "wrong # columns"

@@ -25,7 +25,7 @@ CORE = "core"
 
 class StaticGraph():
 
-    def __init__(self, filename):
+    def __init__(self, filename, separator=","):
         """
         expects a filename (csv, 3 columns, with the right headers)
         and builds the output data frame, with nodes and their features
@@ -33,7 +33,7 @@ class StaticGraph():
         """
         self.filename = filename
         
-        self.df = pd.read_csv(filename, usecols=[SOURCE, DESTINATION, MEASURE])
+        self.df = pd.read_csv(filename, usecols=[SOURCE, DESTINATION, MEASURE], sep=separator)
         self.headers = list(self.df.columns.values)
 
         assert len(self.headers) == 3, "wrong # columns"
